@@ -1,0 +1,42 @@
+[
+  {
+    "train_id": "bacs",
+    "train_no": 12345,
+    "seats": [
+      [0,0,0,0,0,0],
+      [0,0,0,0,0,0],
+      [0,0,0,0,0,0],
+      [0,0,0,0,0,0]
+    ],
+    "station_times": {
+      "montreal": "13:50:00",
+      "ottawa": "13:50:00",
+      "toronto": "13:50:00"
+    },
+    "stations": [
+      "montreal",
+      "ottawa",
+      "toronto"
+    ]
+  },
+  {
+    "train_id": "bacs",
+    "train_no": 12345,
+    "seats": [
+      [0,0,0,0,0,0],
+      [0,0,0,0,0,0],
+      [0,0,0,0,0,0],
+      [0,0,0,0,0,0]
+    ],
+    "station_times": {
+      "montreal": "13:50:00",
+      "ottawa": "13:50:00",
+      "toronto": "13:50:00"
+    },
+    "stations": [
+      "montreal",
+      "ottawa",
+      "toronto"
+    ]
+  }
+]
