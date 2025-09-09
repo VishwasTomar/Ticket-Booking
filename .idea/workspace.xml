@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1a339e0d-65f2-4aff-8fb7-f7300edd3bd5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/localDb/train.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/localDb/users.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/util/UserServiceUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entities/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Ticket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entities/Train.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Train.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/UserBookingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/UserBookingService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

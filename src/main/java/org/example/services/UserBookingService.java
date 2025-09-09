@@ -2,6 +2,7 @@ package org.example.services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.entities.Ticket;
 import org.example.entities.User;
 import org.example.util.UserServiceUtil;
 
@@ -23,7 +24,7 @@ public class UserBookingService {
 
     public Boolean loginUser(){
         Optional<User> foundUser = userList.stream().filter(user1 ->{
-            return user1.getName().equalsIgnoreCase(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword())
+            return user1.getName().equalsIgnoreCase(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword());
         }).findFirst();
         return foundUser.isPresent();
     }
@@ -50,5 +51,31 @@ public class UserBookingService {
     }
 
     //implement cancelBooking that i will do after watching once again video
+    public boolean cancelBooking(String ticketId){
+        Optional<User> foundUser = userList.stream()
+                .filter(u -> u.getName().equalsIgnoreCase(user.getName()))
+                .findFirst();
+
+        if (foundUser.isEmpty()) {
+            return false; // user not found
+        }
+
+        User currentUser = foundUser.get();
+
+        // Find ticket by id
+        boolean removed = currentUser.getTicketsBooked().removeIf(ticket -> ticket.getTicketId().equals(ticketId));
+
+        if (removed) {
+            try {
+                saveUserListToFile(); // persist changes
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        return false; // ticket not found
+    }
 
 }
