@@ -1,10 +1,14 @@
 package org.example;
 
+import org.example.entities.User;
 import org.example.services.UserBookingService;
+import org.example.util.UserServiceUtil;
 
 import java.io.IOException;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,6 +20,7 @@ public class Main {
             userBookingService = new UserBookingService();
         } catch (IOException e) {
             System.out.println("There is something wrong");
+            e.printStackTrace(); // THIS WILL SHOW THE REAL ERROR
             return;
         }
         int option =0;
@@ -27,8 +32,36 @@ public class Main {
             System.out.println("4. Search Trains");
             System.out.println("5. Book a Seat");
             System.out.println("6. Cancel my booking");
-            System.out.println("7. Exit");
+            System.out.println("7. Exit from app");
             option = sc.nextInt();
+            switch(option){
+                case 1:
+                    System.out.println("Enter the username to signup");
+                    String username = sc.next();
+                    System.out.println("Enter the password to signup");
+                    String password = sc.next();
+                    User userToSignUp = new User(username,password, UserServiceUtil.hashPassword(password),new ArrayList<>(), UUID.randomUUID().toString());
+                    userBookingService.signUp(userToSignUp);
+                    break;
+
+                case 2:
+                    System.out.println("Enter the username to login");
+                    String usernameToLogin = sc.next();
+                    System.out.println("Enter the password to login");
+                    String passwordToLogin = sc.next();
+                    User userToLogin = new User(usernameToLogin,passwordToLogin, UserServiceUtil.hashPassword(passwordToLogin),new ArrayList<>(), UUID.randomUUID().toString());
+                    try{
+                        userBookingService = new UserBookingService(userToLogin);
+                    }catch(IOException ex){
+                        ex.printStackTrace();
+                        return;
+                    }
+                    break;
+                case 3:
+                    System.out.println("fetch your bookings");
+                    userBookingService.fetchBooking();
+
+            }
 
         }
     }

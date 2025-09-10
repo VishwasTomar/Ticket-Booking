@@ -1,7 +1,10 @@
 package org.example.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Ticket {
     private String ticketId;
     private String userId;
@@ -18,6 +21,7 @@ public class Ticket {
         this.train = train;
     }
 
+    public Ticket(){}
     public String getTicketId() {
         return ticketId;
     }

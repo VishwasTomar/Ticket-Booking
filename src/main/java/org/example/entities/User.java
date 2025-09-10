@@ -1,7 +1,10 @@
 package org.example.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
     private String name;
     private String password;
@@ -15,6 +18,10 @@ public class User {
         this.hashedPassword = hashedPassword;
         this.ticketsBooked = ticketsBooked;
         this.userId = userId;
+    }
+
+    public User(){
+
     }
 
     public String getName() {

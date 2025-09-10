@@ -2,6 +2,7 @@ package org.example.services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import org.example.entities.Ticket;
 import org.example.entities.User;
 import org.example.util.UserServiceUtil;
@@ -14,8 +15,9 @@ import java.util.Optional;
 public class UserBookingService {
     private User user;
     private List<User> userList;
-    private ObjectMapper objectMapper = new ObjectMapper();
-    private static final String USERS_PATH = "src/main/java/org/example/localDb/users.json";
+    private ObjectMapper objectMapper = new ObjectMapper()
+            .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
+    private static final String USERS_PATH =  "C:/Users/vishw/IdeaProjects/Ticket-Booking/src/main/java/org/example/localDb/users.json";
     public UserBookingService(User user1) throws IOException {
         this.user = user1;
         loadUsers();
@@ -24,6 +26,7 @@ public class UserBookingService {
     public UserBookingService() throws IOException {
         loadUsers();
     }
+
 
     public List<User> loadUsers() throws IOException {
         File users = new File(USERS_PATH);
@@ -64,7 +67,7 @@ public class UserBookingService {
                 .filter(u -> u.getName().equalsIgnoreCase(user.getName()))
                 .findFirst();
 
-        if (foundUser.isEmpty()) {
+        if (!foundUser.isPresent()) {
             return false; // user not found
         }
 
