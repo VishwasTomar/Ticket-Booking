@@ -41,7 +41,7 @@ public class Main {
                     System.out.println("Enter the password to signup");
                     String password = sc.next();
                     User userToSignUp = new User(username,password, UserServiceUtil.hashPassword(password),new ArrayList<>(), UUID.randomUUID().toString());
-                    userBookingService.signUp(userToSignUp);
+                    System.out.println(userBookingService.signUp(userToSignUp));
                     break;
 
                 case 2:
@@ -49,17 +49,28 @@ public class Main {
                     String usernameToLogin = sc.next();
                     System.out.println("Enter the password to login");
                     String passwordToLogin = sc.next();
-                    User userToLogin = new User(usernameToLogin,passwordToLogin, UserServiceUtil.hashPassword(passwordToLogin),new ArrayList<>(), UUID.randomUUID().toString());
+                    User userToLogin = new User(usernameToLogin,passwordToLogin, UserServiceUtil.hashPassword(passwordToLogin));
                     try{
                         userBookingService = new UserBookingService(userToLogin);
+                        System.out.println(userBookingService.loginUser());
                     }catch(IOException ex){
                         ex.printStackTrace();
                         return;
                     }
+
                     break;
                 case 3:
-                    System.out.println("fetch your bookings");
-                    userBookingService.fetchBooking();
+                    if(userBookingService != null && userBookingService.isLoggedIn()) {
+                        System.out.println("fetch your bookings");
+                        userBookingService.fetchBooking();
+                    }else{
+                        System.out.println("you are not login, first log in app");
+                    }
+                case 4:
+
+                case 7:
+                    System.out.println("exit from App.");
+                    break;
 
             }
 

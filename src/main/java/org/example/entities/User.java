@@ -20,6 +20,11 @@ public class User {
         this.userId = userId;
     }
 
+    public User(String name, String password, String hashedPassword){
+        this.name = name;
+        this.password = password;
+        this.hashedPassword = hashedPassword;
+    }
     public User(){
 
     }

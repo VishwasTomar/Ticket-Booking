@@ -39,14 +39,19 @@ public class UserBookingService {
         }).findFirst();
         return foundUser.isPresent();
     }
+     public boolean isLoggedIn(){
+        return loginUser();
+     }
 
-    public Boolean signUp(User user){
+    public String signUp(User user){
         try{
             userList.add(user);
             saveUserListToFile();
-            return Boolean.TRUE;
+            return String.format("%s signed up successfully.",user.getName());
+            //return Boolean.TRUE;
         }catch(IOException ex){
-            return Boolean.FALSE;
+            return String.format("sign up failed.");
+            //return Boolean.FALSE;
         }
     }
 
