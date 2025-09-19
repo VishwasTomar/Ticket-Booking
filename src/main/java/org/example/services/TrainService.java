@@ -16,6 +16,9 @@ import java.util.Optional;
 public class TrainService
 {
     private List<Train> trainList;
+
+
+
     private ObjectMapper objectMapper = new ObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);;
 
     private static final String train_Path = "C:/Users/vishw/IdeaProjects/Ticket-Booking/src/main/java/org/example/localDb/train.json";
@@ -38,5 +41,16 @@ public class TrainService
         return "train is not present";
     }
 
+    public List<Train> getTrainList() {
+        return trainList;
+    }
 
+    public void setTrainList(List<Train> trainList) {
+        this.trainList = trainList;
+    }
+
+    public Optional<Train> getTrainByNumber(String trainNO){
+        Optional<Train> foundTrain = trainList.stream().filter(train1 -> {train1.getTrainNo().equalsIgnoreCase(trainNO)}).findFirst();
+        return foundTrain;
+    }
 }
