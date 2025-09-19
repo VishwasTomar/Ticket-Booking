@@ -34,6 +34,9 @@ public class UserBookingService {
     }
 
     public Boolean loginUser(){
+        if (user == null){
+            return false;
+        }
         Optional<User> foundUser = userList.stream().filter(user1 ->{
             return user1.getName().equalsIgnoreCase(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword());
         }).findFirst();

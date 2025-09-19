@@ -34,13 +34,13 @@ public class Main {
             System.out.println("6. Cancel my booking");
             System.out.println("7. Exit from app");
             option = sc.nextInt();
-            switch(option){
+            switch(option) {
                 case 1:
                     System.out.println("Enter the username to signup");
                     String username = sc.next();
                     System.out.println("Enter the password to signup");
                     String password = sc.next();
-                    User userToSignUp = new User(username,password, UserServiceUtil.hashPassword(password),new ArrayList<>(), UUID.randomUUID().toString());
+                    User userToSignUp = new User(username, password, UserServiceUtil.hashPassword(password), new ArrayList<>(), UUID.randomUUID().toString());
                     System.out.println(userBookingService.signUp(userToSignUp));
                     break;
 
@@ -49,29 +49,41 @@ public class Main {
                     String usernameToLogin = sc.next();
                     System.out.println("Enter the password to login");
                     String passwordToLogin = sc.next();
-                    User userToLogin = new User(usernameToLogin,passwordToLogin, UserServiceUtil.hashPassword(passwordToLogin));
-                    try{
+                    User userToLogin = new User(usernameToLogin, passwordToLogin, UserServiceUtil.hashPassword(passwordToLogin));
+                    try {
                         userBookingService = new UserBookingService(userToLogin);
                         System.out.println(userBookingService.loginUser());
-                    }catch(IOException ex){
+                    } catch (IOException ex) {
                         ex.printStackTrace();
                         return;
                     }
-
                     break;
                 case 3:
-                    if(userBookingService != null && userBookingService.isLoggedIn()) {
-                        System.out.println("fetch your bookings");
-                        userBookingService.fetchBooking();
-                    }else{
+                    if (userBookingService == null) {
                         System.out.println("you are not login, first log in app");
+                    } else {
+                        if (userBookingService.isLoggedIn()) {
+                            System.out.println("fetch your bookings");
+                            userBookingService.fetchBooking();
+                        } else {
+                            System.out.println("you are not login, first log in app");
+                        }
                     }
-                case 4:
-
-                case 7:
-                    System.out.println("exit from App.");
                     break;
 
+                case 4:
+                    if (userBookingService == null) {
+                        System.out.println("you are not login, first log in app");
+                    } else{
+                        if(userBookingService.isLoggedIn()){
+                            System.out.println("Search your train from source to destination.");
+                            System.out.println("Enter your Source....");
+                            String source = sc.next();
+                            System.out.println("Enter your destination");
+                            String destination = sc.next();
+
+                        }
+                    }
             }
 
         }

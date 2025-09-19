@@ -70,6 +70,10 @@ public class User {
     }
 
     public void printTickets(){
+        if(ticketsBooked==null){
+            System.out.println("no tickets booked, please book tickets first to fetch tickets.");
+            return;
+        }
         for(int i=0;i<ticketsBooked.size();i++){
             System.out.println(ticketsBooked.get(i).getTicketInfo());
         }
