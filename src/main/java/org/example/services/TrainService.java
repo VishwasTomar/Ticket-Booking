@@ -50,7 +50,9 @@ public class TrainService
     }
 
     public Optional<Train> getTrainByNumber(String trainNO){
-        Optional<Train> foundTrain = trainList.stream().filter(train1 -> {train1.getTrainNo().equalsIgnoreCase(trainNO)}).findFirst();
+        Optional<Train> foundTrain = trainList.stream()
+                .filter(train1 -> train1.getTrainNo().equalsIgnoreCase(trainNO))
+                .findFirst();
         return foundTrain;
     }
 }

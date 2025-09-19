@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1a339e0d-65f2-4aff-8fb7-f7300edd3bd5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/localDb/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/localDb/users.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/TrainService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/TrainService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,10 +48,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/main/java/org/example/localDb/users.json" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/org/example/localDb/users.json" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="305ypyT0MGDqeNMvJ1IAIXXqvcn" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
