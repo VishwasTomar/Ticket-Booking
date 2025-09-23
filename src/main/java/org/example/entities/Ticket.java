@@ -3,6 +3,7 @@ package org.example.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Date;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Ticket {
@@ -12,13 +13,15 @@ public class Ticket {
     private String destination;
     private Date dateOfTravel;
     private Train train;
-    public Ticket(String ticketId, String userId, String source, String destination, Date dateOfTravel, Train train){
+    private List<String> bookedSeats;
+    public Ticket(String ticketId, String userId, String source, String destination, Date dateOfTravel, Train train, List<String> bookedSeats){
         this.ticketId = ticketId;
         this.userId = userId;
         this.source = source;
         this.destination = destination;
         this.dateOfTravel = dateOfTravel;
         this.train = train;
+        this.bookedSeats = bookedSeats;
     }
 
     public Ticket(){}
