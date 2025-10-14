@@ -55,4 +55,9 @@ public class TrainService
                 .findFirst();
         return foundTrain;
     }
+
+    public void saveTrainData(Train train) throws IOException {
+        File trainfile = new File(train_Path);
+        objectMapper.writeValue(trainfile,trainList);
+    }
 }

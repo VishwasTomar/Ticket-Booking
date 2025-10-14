@@ -5,6 +5,7 @@ import org.example.entities.Ticket;
 import org.example.entities.Train;
 import org.example.entities.User;
 
+import java.io.IOException;
 import java.util.*;
 
 public class TicketService {
@@ -17,7 +18,7 @@ public class TicketService {
         this.trainService = trainService;
     }
 
-    public String bookTickets(User user, Train train, Date date, int seatsToBook, Scanner sc) {
+    public String bookTickets(User user, Train train, Date date, int seatsToBook, Scanner sc) throws IOException {
         Boolean seatsAvailable = checkAvailableSeats(train, seatsToBook);
         if(seatsAvailable.equals(true)){
             List<String> bookedSeats = bookAndGetSeatNumbers(train,seatsToBook);
@@ -25,16 +26,28 @@ public class TicketService {
             String[] stations = getSourceDestinationFromUser(train, sc);
             Ticket ticket = createTicket(ticketId,user,train,stations[0],stations[1],date,bookedSeats);
             completeBooking(user,train,ticket);
-            return " tickets booked successfully";
+            return "tickets booked successfully";
         }
         return "Booking Failed - not enough seats";
     }
 
-    private void completeBooking(User user, Train train, Ticket ticket) {
-
+    private void completeBooking(User user, Train train, Ticket ticket) throws IOException {
+        if (user.getTicketsBooked() == null) {
+            user.setTicketsBooked(new ArrayList<>());
+        }
+        user.getTicketsBooked().add(ticket);
+        userBookingService.saveUserData(user);
+        trainService.saveTrainData(train);
     }
 
     private Ticket createTicket(String ticketId, User user, Train train, String station, String station1, Date date, List<String> bookedSeats) {
+        // ADD THESE DEBUG LINES:
+        System.out.println("=== DEBUG TICKET CREATION ===");
+        System.out.println("Ticket ID: " + ticketId);
+        System.out.println("User ID: " + user.getUserId());
+        System.out.println("User Name: " + user.getName());
+        System.out.println("User Object: " + user);
+        System.out.println("=============================");
         return new Ticket(ticketId, user.getUserId(), station, station1,date,train,bookedSeats );
     }
 

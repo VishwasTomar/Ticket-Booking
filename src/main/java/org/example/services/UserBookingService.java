@@ -18,9 +18,19 @@ public class UserBookingService {
     private ObjectMapper objectMapper = new ObjectMapper()
             .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
     private static final String USERS_PATH =  "C:/Users/vishw/IdeaProjects/Ticket-Booking/src/main/java/org/example/localDb/users.json";
-    public UserBookingService(User user1) throws IOException {
-        this.user = user1;
+    public UserBookingService(User user) throws IOException {
         loadUsers();
+
+        Optional<User> completeUser = userList.stream()
+                .filter(u -> u.getName().equalsIgnoreCase(user.getName()))
+                .findFirst();
+
+        if (completeUser.isPresent()) {
+            this.user = completeUser.get(); // Use user from JSON with tickets
+        } else {
+            this.user = user;
+            System.out.println("User not found in database!");
+        }
     }
 
     public UserBookingService() throws IOException {
@@ -66,9 +76,23 @@ public class UserBookingService {
     // json file -> object(user) -> deserialize
     // object(user) -> json file -> serialize
     public void fetchBooking(){
+        /*System.out.println("=== DEBUG: fetchBooking() called ===");
+        System.out.println("User: " + (user != null ? user.getName() : "NULL USER"));
+        System.out.println("TicketsBooked: " + (user != null ? user.getTicketsBooked() : "NO USER"));
+        if (user != null && user.getTicketsBooked() != null) {
+            System.out.println("Ticket count: " + user.getTicketsBooked().size());
+        } else {
+            System.out.println("Either user is null or ticketsBooked is null");
+        }
+        System.out.println("===================================");*/
         user.printTickets();
     }
 
+    public Optional<User> findUserByUsername(String username) {
+        return userList.stream()
+                .filter(user -> user.getName().equalsIgnoreCase(username))
+                .findFirst();
+    }
     //implement cancelBooking that i will do after watching once again video
     public boolean cancelBooking(String ticketId){
         Optional<User> foundUser = userList.stream()
@@ -97,4 +121,12 @@ public class UserBookingService {
         return false; // ticket not found
     }
 
+    public void saveUserData(User user) throws IOException {
+        File userFile = new File(USERS_PATH);
+        objectMapper.writeValue(userFile,userList);
+    }
+
+    public User getCurrentUser() {
+        return this.user;
+    }
 }

@@ -70,7 +70,7 @@ public class User {
     }
 
     public void printTickets(){
-        if(ticketsBooked==null){
+        if(ticketsBooked==null || ticketsBooked.isEmpty()){
             System.out.println("no tickets booked, please book tickets first to fetch tickets.");
             return;
         }
