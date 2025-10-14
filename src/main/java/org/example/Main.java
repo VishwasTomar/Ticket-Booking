@@ -23,6 +23,7 @@ public class Main {
         try {
             userBookingService = new UserBookingService();
             trainService = new TrainService();
+            userBookingService.setTrainService(trainService);
         } catch (IOException e) {
             System.out.println("There is something wrong "+ e);
             e.printStackTrace(); // THIS WILL SHOW THE REAL ERROR
@@ -60,7 +61,7 @@ public class Main {
                         User userToLogin = existingUser.get();
 
                         if (UserServiceUtil.checkPassword(passwordToLogin, userToLogin.getHashedPassword())) {
-                            userBookingService = new UserBookingService(userToLogin);
+                            userBookingService = new UserBookingService(userToLogin, trainService);
                             System.out.println("Login successful!");
                         } else {
                             System.out.println("Wrong password!");
@@ -173,6 +174,37 @@ public class Main {
                             e.printStackTrace();
                         }
                     }
+                    break;
+                case 6:
+                    try {
+                        if (userBookingService == null || !userBookingService.isLoggedIn()) {
+                            System.out.println("Please login first!");
+                        } else {
+                            System.out.println("=== Your Booked Tickets ===");
+                            userBookingService.fetchBooking();
+
+                            User currentUser = userBookingService.getCurrentUser();
+                            if (currentUser.getTicketsBooked() == null || currentUser.getTicketsBooked().isEmpty()) {
+                                System.out.println("You have no tickets to cancel!");
+                            } else {
+                                System.out.println("Enter the Ticket ID you want to cancel:");
+                                String ticketIdToCancel = sc.next();
+
+                                boolean success = userBookingService.cancelBooking(ticketIdToCancel);
+                                if (success) {
+                                    System.out.println("Ticket cancelled successfully!");
+                                } else {
+                                    System.out.println("Failed to cancel ticket.");
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Error in cancellation: " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                    break;
+                default:
+                    System.out.println("Exit from App.");
                     break;
             }
 

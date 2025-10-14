@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import org.example.entities.Ticket;
+import org.example.entities.Train;
 import org.example.entities.User;
 import org.example.util.UserServiceUtil;
 
@@ -15,10 +16,12 @@ import java.util.Optional;
 public class UserBookingService {
     private User user;
     private List<User> userList;
+    private TrainService trainService;
     private ObjectMapper objectMapper = new ObjectMapper()
             .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
     private static final String USERS_PATH =  "C:/Users/vishw/IdeaProjects/Ticket-Booking/src/main/java/org/example/localDb/users.json";
-    public UserBookingService(User user) throws IOException {
+    public UserBookingService(User user, TrainService trainService) throws IOException {
+        this.trainService = trainService;
         loadUsers();
 
         Optional<User> completeUser = userList.stream()
@@ -33,6 +36,10 @@ public class UserBookingService {
         }
     }
 
+    public UserBookingService(TrainService trainService) throws IOException {
+        this.trainService = trainService;
+        loadUsers();
+    }
     public UserBookingService() throws IOException {
         loadUsers();
     }
@@ -95,32 +102,93 @@ public class UserBookingService {
     }
     //implement cancelBooking that i will do after watching once again video
     public boolean cancelBooking(String ticketId){
+        if (trainService == null) {
+            System.out.println("ERROR: trainService is null in cancelBooking!");
+            return false;
+        }
+        // 1. Find user
         Optional<User> foundUser = userList.stream()
                 .filter(u -> u.getName().equalsIgnoreCase(user.getName()))
                 .findFirst();
 
-        if (!foundUser.isPresent()) {
-            return false; // user not found
-        }
+        if (!foundUser.isPresent()) return false;
 
         User currentUser = foundUser.get();
 
-        // Find ticket by id
+        // 2. Find ticket FIRST (before removing)
+        Optional<Ticket> ticketToCancel = currentUser.getTicketsBooked().stream()
+                .filter(ticket -> ticket.getTicketId().equals(ticketId))
+                .findFirst();
+
+        if (!ticketToCancel.isPresent()) return false;
+
+        Ticket cancelledTicket = ticketToCancel.get();
+
+        // 3. Remember train and seats
+        Train train = cancelledTicket.getTrain();
+        List<String> bookedSeats = cancelledTicket.getBookedSeats();
+
+        // 4. Remove ticket
         boolean removed = currentUser.getTicketsBooked().removeIf(ticket -> ticket.getTicketId().equals(ticketId));
 
         if (removed) {
             try {
-                saveUserListToFile(); // persist changes
+                System.out.println("DEBUG: Booked seats list for ticket " + ticketId + " is: " + bookedSeats);
+                // 5. Free up seats
+                freeUpTrainSeats(train, bookedSeats);
+
+                // 6. Save both files
+                saveUserListToFile();
+
+                trainService.saveTrainData(train);
                 return true;
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
             }
         }
-
-        return false; // ticket not found
+        return false;
     }
 
+    public TrainService getTrainService() {
+        return trainService;
+    }
+
+    public void setTrainService(TrainService trainService) {
+        this.trainService = trainService;
+    }
+
+    private void freeUpTrainSeats(Train train, List<String> bookedSeats) {
+        // Add comprehensive null checks
+        if (train == null) {
+            System.out.println("ERROR: Train object is null.");
+            return;
+        }
+
+        if (train.getSeats() == null) {
+            System.out.println("ERROR: Train seat matrix is null.");
+            return;
+        }
+
+        if (bookedSeats == null || bookedSeats.isEmpty()) {
+            System.out.println("INFO: No booked seats to free.");
+            return;
+        }
+
+        // Now proceed with freeing the seats
+        for (String seatCode : bookedSeats) {
+            int row = seatCode.charAt(0) - 'A';
+            int col = Integer.parseInt(seatCode.substring(1)) - 1;
+
+            // Optional: Check if row and col are within the seat matrix bounds
+            if (row < train.getSeats().size() && col < train.getSeats().get(row).size()) {
+                train.getSeats().get(row).set(col, 0); // Free the seat
+            } else {
+                System.out.println("WARNING: Seat code " + seatCode + " is invalid for this train.");
+            }
+        }
+        System.out.println("Seats successfully freed.");
+    }
     public void saveUserData(User user) throws IOException {
         File userFile = new File(USERS_PATH);
         objectMapper.writeValue(userFile,userList);

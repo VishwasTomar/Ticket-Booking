@@ -8,11 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entities/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Ticket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/localDb/train.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/localDb/train.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/localDb/users.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/localDb/users.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/TicketService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/TicketService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/TrainService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/TrainService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/UserBookingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/UserBookingService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

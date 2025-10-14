@@ -72,6 +72,15 @@ public class Ticket {
     public void setTrain(Train train) {
         this.train = train;
     }
+
+    public List<String> getBookedSeats() {
+        return bookedSeats;
+    }
+
+    public void setBookedSeats(List<String> bookedSeats) {
+        this.bookedSeats = bookedSeats;
+    }
+
     public String getTicketInfo(){
         return String.format("Ticket ID: %s belongs to User %s from %s to %s on %s", ticketId, getUserId(),source,destination,dateOfTravel);
     }
